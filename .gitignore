@@ -1,0 +1,13 @@
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDEs
+.idea/
+
+# Logs
+*.log
+
+# Tooling caches (if introduced later)
+node_modules/
