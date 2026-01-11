@@ -3,6 +3,9 @@
 Thumbs.db
 Desktop.ini
 
+# Site verification
+BingSiteAuth.xml
+
 # IDEs
 .idea/
 
