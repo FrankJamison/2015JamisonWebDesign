@@ -1,156 +1,109 @@
-# 2015 Jamison Web Design (Static Site)
+# 2015 Jamison Web Design
 
-A small, static, multi-page website built with classic HTML/CSS/JavaScript.
+Static, multi‑page “brochure” website showcasing web design services and portfolio work. This repo is intentionally build‑free (plain HTML/CSS/JavaScript), designed for easy hosting as static files.
 
-This workspace contains the site’s pages, styling, images, fonts, and a small amount of JavaScript for progressive enhancement and UI behavior.
+## Highlights (Recruiter-Friendly)
 
-## Contents
+### Design & UX
 
-- [Project Overview](#project-overview)
-- [Tech Stack](#tech-stack)
-- [Site Pages](#site-pages)
-- [Folder / File Structure](#folder--file-structure)
-- [Run / View Locally](#run--view-locally)
-- [Editing Guidelines](#editing-guidelines)
-- [Forms / Contact Flow](#forms--contact-flow)
-- [SEO / Crawling](#seo--crawling)
-- [Browser Support Notes](#browser-support-notes)
-- [Deployment](#deployment)
-- [License / Credits](#license--credits)
+- **Consistent layout system** across pages (header + navigation + content + footer)
+- **Hero image slideshow** with caption overlay and hover‑to‑pause interaction
+- **Custom typography** via embedded `@font-face` (“News Cycle”)
+- **Visual depth** using shadows, gradients, rounded corners, and a translucent content panel overlay
+- **Clear information architecture**: Services, Projects, Testimonials, Contact, and post‑submit confirmation/error pages
 
-## Project Overview
+### Development
 
-This is a traditional “brochure” style site intended to be hosted as static files:
-
-- Multiple standalone HTML pages
-- Shared stylesheet in `css/style.css`
-- Images in `images/`
-- JavaScript in `js/` (including a bundled jQuery copy and Modernizr)
-
-There is no build step and no server-side runtime required to render the pages.
+- **No build step / no framework**: open the files directly or serve via any static server
+- **Progressive enhancement**: Modernizr enables HTML5 element support and feature detection for older browsers
+- **Separation of concerns**:
+  - Presentation in `css/style.css`
+  - Behavior in `js/image_slide.js` (site-specific) + vendor libraries in `js/`
+- **SEO & sharing metadata**: Open Graph meta tags on pages + `sitemap.xml` for crawlers
+- **Contact workflow**: HTML form posts to a hosted form handler and routes to `thankyou.html` / `error.html`
 
 ## Tech Stack
 
-- **HTML**: Static pages (no templating/build pipeline)
-- **CSS**: Single primary stylesheet
+- **HTML**: static pages (primarily classic/legacy era markup)
+- **CSS**: single main stylesheet at `css/style.css`
 - **JavaScript**:
-  - `js/jquery.js` (jQuery library)
-  - `js/modernizr-1.5.min.js` (feature detection for older browsers)
-  - `js/image_slide.js` (site-specific behavior; likely slideshow/rotation)
+  - `js/image_slide.js` – slideshow/caption behavior (jQuery)
+  - `js/jquery.js` – jQuery 1.4.2 (vendored)
+  - `js/modernizr-1.5.min.js` – Modernizr (vendored)
 
-## Site Pages
+## Pages
 
-Top-level pages in the project root:
-
-- `index.htm` — Home page
-- `services.html` — Services overview
-- `projects.html` — Projects/portfolio
+- `index.htm` — Home
+- `services.html` — Services
+- `projects.html` — Portfolio/projects
 - `testimonials.html` — Testimonials
-- `contact.html` — Contact page
-- `thankyou.html` — Post-submission/confirmation page
-- `error.html` — Error/fallback page
+- `contact.html` — Contact form + direct contact info
+- `thankyou.html` — Form success page
+- `error.html` — Form error page
 
-Additional non-page files:
+Supporting:
 
-- `sitemap.xml` — Sitemap for search engines
-- `BingSiteAuth.xml` — Search engine verification file
+- `sitemap.xml` — sitemap for search engines
 
-## Folder / File Structure
+## Project Structure
 
-- `css/`
-  - `style.css` — Main site styles
-- `fonts/`
-  - Font license text file(s)
-- `images/`
-  - Site images (logos, backgrounds, portfolio images, etc.)
-- `js/`
-  - `image_slide.js` — Site-specific JS
-  - `jquery.js` — jQuery
-  - `modernizr-1.5.min.js` — Modernizr
+```
+.
+├─ index.htm
+├─ services.html
+├─ projects.html
+├─ testimonials.html
+├─ contact.html
+├─ thankyou.html
+├─ error.html
+├─ sitemap.xml
+├─ css/
+│  └─ style.css
+├─ js/
+│  ├─ image_slide.js
+│  ├─ jquery.js
+│  └─ modernizr-1.5.min.js
+├─ images/
+└─ fonts/
+```
 
-## Run / View Locally
+## Run Locally
 
-Because this is a static site, you can view it in a couple of simple ways:
+### Option A: Open directly
 
-### Option A: Open the file directly
+Open `index.htm` in a browser.
 
-1. In File Explorer, open `index.htm`.
-2. Double-click to open it in your default browser.
+### Option B: Serve via a static server (recommended)
 
-Notes:
+From the project folder:
 
-- Some browsers apply stricter rules to scripts/assets when opening files directly.
-- If anything appears broken (images not loading, scripts blocked, etc.), use Option B.
+- Python (Windows): `py -m http.server 8080`
+- Node: `npx serve .`
 
-### Option B: Serve the folder with a simple static server
+Then visit `http://localhost:8080/` (or the URL your server prints) and open `index.htm`.
 
-Serving files over HTTP is closer to how the site behaves in production.
+### VS Code task
 
-Common approaches:
+If you use the included task, it opens a configured local URL:
 
-- VS Code “Live Server” extension
-- Any static server command (for example, from Python, Node, etc.)
+- `.vscode/tasks.json` → **Open in Browser** (points at `http://2015jamisonwebdesign.localhost/`)
 
-Once served, open the site’s root page (`index.htm`) in your browser via the server’s URL.
+## Contact Form Notes
 
-## Editing Guidelines
+The contact form in `contact.html` posts to a hosted endpoint (Powweb’s `formemail.bml`) and uses:
 
-- **Global styling**: update `css/style.css`.
-- **Navigation / shared layout**: because pages are static, shared elements are duplicated across each HTML file. When changing navigation, update it consistently across:
-  - `index.htm`
-  - `services.html`
-  - `projects.html`
-  - `testimonials.html`
-  - `contact.html`
-  - and any other page with the same header/footer.
-- **Images**: place new assets in `images/` and reference them with relative paths.
-- **JavaScript behavior**:
-  - Site-specific logic likely lives in `js/image_slide.js`.
-  - Avoid editing `js/jquery.js` and `js/modernizr-1.5.min.js` unless you intentionally want to upgrade/replace those libraries.
+- `thankyou.html` on success
+- `error.html` on failure
 
-## Forms / Contact Flow
+If you deploy this site somewhere else, you’ll likely want to replace the form handler (or update the redirect URLs) to match your hosting platform.
 
-The site includes `contact.html` and a `thankyou.html` page.
+## SEO / Verification Notes
 
-Important note: static hosting does not process forms by itself. If the contact form is expected to send email or store submissions, you will need one of:
+- `sitemap.xml` is included for search engine indexing.
+- `BingSiteAuth.xml` is intentionally **ignored** by git in this repo; if you need Bing verification for a deployment, add the file at the site root locally.
 
-- A hosted form provider (embed or post-to endpoint)
-- A small server-side handler (PHP/Node/etc.)
-- A serverless function (platform-specific)
+## Credits / Third‑Party
 
-If the form currently posts to a server endpoint, ensure that endpoint exists in the target hosting environment and that the success/error redirects match `thankyou.html` / `error.html`.
-
-## SEO / Crawling
-
-- `sitemap.xml` is present for indexing.
-- `BingSiteAuth.xml` exists for site ownership verification.
-
-When deploying:
-
-- Ensure both XML files are available at the site root.
-- If you change page names or add new pages, update `sitemap.xml` accordingly.
-
-## Browser Support Notes
-
-This project includes Modernizr and uses older-style front-end patterns consistent with its era.
-
-- If you modernize any markup/CSS, verify layout in at least one evergreen browser.
-- If legacy browser support matters, test carefully before removing Modernizr or changing key CSS rules.
-
-## Deployment
-
-This site can be deployed to any static hosting solution:
-
-- Copy all files/folders as-is to your web root.
-- Preserve the directory structure (`css/`, `js/`, `images/`, etc.).
-- Ensure the default document is set to `index.htm` (some hosts default to `index.html`).
-  - If your host requires `index.html`, either rename the file (and update links) or configure the host to use `index.htm`.
-
-## License / Credits
-
-- Font licensing information (if applicable) is included under `fonts/`.
-- Third-party libraries:
-  - jQuery (`js/jquery.js`)
-  - Modernizr (`js/modernizr-1.5.min.js`)
-
-If you redistribute or publish this site, review any third-party license requirements and ensure attribution/terms are satisfied.
+- Template attribution is linked in the site footer (Jamison Web Design + Free HTML5 Templates).
+- Vendored libraries: jQuery 1.4.2 and Modernizr 1.5.
+- Font license information is included under `fonts/`.
