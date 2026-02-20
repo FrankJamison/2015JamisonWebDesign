@@ -7,7 +7,7 @@
             "command": "start",
             "args": [
                 "chrome",
-                "http://2015jamisonwebdesign.localhost/"
+                "http://jamisonwebdesignv2015.localhost/"
             ],
             "presentation": {
                 "reveal": "never",
